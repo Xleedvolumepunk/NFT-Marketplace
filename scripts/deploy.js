@@ -1,14 +1,18 @@
 const hre = require("hardhat");
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
+console.log("Deploy script started...");
+const [deployer] = await ethers.getSigners();
+console.log("Deployer address:", deployer.address);
 
-  console.log("Deploying contracts with the account:", deployer.address);
+const ContractFactory = await ethers.getContractFactory("MyNFT");
+console.log("Deploying contract...");
 
-  const MyNFT = await hre.ethers.getContractFactory("MyNFT");
-  const myNFT = await MyNFT.deploy();
+const contract = await ContractFactory.deploy();
+await contract.deployed();
 
-  console.log("MyNFT contract deployed to:", myNFT.address);
+console.log("Contract deployed to:", contract.address);
+
 }
 
 main()
@@ -17,4 +21,3 @@ main()
     console.error(error);
     process.exit(1);
   });
-
